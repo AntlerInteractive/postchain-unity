@@ -19,7 +19,7 @@ namespace Chromia.Postchain.Client.Unity
         ///<summary>
         ///Indicates wether the transaction has been sent already.
         ///</summary>
-        public bool sent {get; private set;} = false;
+        public bool sent { get; private set; } = false;
 
         private Gtx _gtxObject;
         private string _baseUrl;
@@ -129,6 +129,13 @@ namespace Chromia.Postchain.Client.Unity
 
             var ret = request.parsedContent;
             this._error = true;
+
+            if (ret == null || request.error)
+            {
+                this._onError("Unexpected error: " + request.errorMessage);
+                yield break;
+            }
+
             switch (ret.status)
             {
                 case "confirmed":

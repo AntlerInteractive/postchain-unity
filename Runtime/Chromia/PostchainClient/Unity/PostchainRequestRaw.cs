@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Chromia.Postchain.Client.Unity
@@ -26,7 +24,7 @@ namespace Chromia.Postchain.Client.Unity
 
         public virtual IEnumerator Get()
         {
-            var request = new UnityWebRequest(this._uri, "GET");
+            using var request = new UnityWebRequest(this._uri, "GET");
             request.downloadHandler = new DownloadHandlerBuffer();
             yield return request.SendWebRequest();
 
@@ -38,9 +36,9 @@ namespace Chromia.Postchain.Client.Unity
 
         public virtual IEnumerator Post(string payload)
         {
-            var request = new UnityWebRequest(this._uri, "POST");
+            using var request = new UnityWebRequest(this._uri, "POST");
             byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(payload);
-            var uploader = new UploadHandlerRaw(bodyRaw);
+            using var uploader = new UploadHandlerRaw(bodyRaw);
 
             uploader.contentType = "application/json";
 
@@ -58,9 +56,9 @@ namespace Chromia.Postchain.Client.Unity
         private bool CheckError(UnityWebRequest request)
         {
             this.error = request.result == UnityWebRequest.Result.ConnectionError
-                || request.result == UnityWebRequest.Result.DataProcessingError
-                || request.result == UnityWebRequest.Result.ProtocolError;
-            this.errorMessage = request.error;
+                         || request.result == UnityWebRequest.Result.DataProcessingError
+                         || request.result == UnityWebRequest.Result.ProtocolError;
+            this.errorMessage = request.error + " " + request.downloadHandler?.text;
 
             return this.error;
         }

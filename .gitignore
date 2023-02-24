@@ -239,7 +239,6 @@ _pkginfo.txt
 # Others
 ClientBin/
 ~$*
-*~
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
@@ -467,6 +466,5 @@ crashlytics-build.properties
 
 # Unity
 
-*.meta
 .vscode
 .project

@@ -8,11 +8,11 @@ namespace Chromia.Postchain.Client.Unity
     {
         public T parsedContent;
 
-        public PostchainRequest(Uri uri): base(uri)
-        {}
+        public PostchainRequest(Uri uri) : base(uri)
+        { }
 
-        public PostchainRequest(string urlBase, string path): base(urlBase, path)
-        {}
+        public PostchainRequest(string urlBase, string path) : base(urlBase, path)
+        { }
 
         public override IEnumerator Get()
         {
