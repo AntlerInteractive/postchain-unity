@@ -83,7 +83,7 @@ namespace Chromia.Postchain.Client
             {
                 gtxValue.Choice = GTXValueChoice.Dict;
 
-                var dict = (Dictionary<string, object>)arg;
+                var dict = SortDictionaryByKey((Dictionary<string, object>)arg);
 
                 gtxValue.Dict = new List<DictPair>();
                 foreach (var dictPair in dict)
@@ -236,6 +236,19 @@ namespace Chromia.Postchain.Client
             {
                 return 1;
             }
+        }
+
+        private Dictionary<TKey, TValue> SortDictionaryByKey<TKey, TValue>(Dictionary<TKey, TValue> dict)
+        {
+            var sortedArray = dict.OrderBy(kvp => kvp.Key).ToArray();
+            var sortedDict = new Dictionary<TKey, TValue>();
+
+            foreach (var (key, value) in sortedArray)
+            {
+                sortedDict[key] = value;
+            }
+
+            return sortedDict;
         }
     }
 }
