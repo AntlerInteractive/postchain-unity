@@ -238,7 +238,7 @@ namespace Chromia.Postchain.Client
             }
         }
 
-        private Dictionary<TKey, TValue> SortDictionaryByKey<TKey, TValue>(Dictionary<TKey, TValue> dict)
+        private static Dictionary<TKey, TValue> SortDictionaryByKey<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             var sortedArray = dict.OrderBy(kvp => kvp.Key).ToArray();
             var sortedDict = new Dictionary<TKey, TValue>();
